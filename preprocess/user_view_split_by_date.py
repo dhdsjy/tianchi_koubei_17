@@ -1,35 +1,38 @@
 import pandas as pd
 import os
 import cPickle
+import datetime
 
 DATA_DIR = "../data/"
-ISFORMAT="%Y-%m-%d %H:%M:%S"
+ISFORMAT = "%Y-%m-%d %H:%M:%S"
+
+def string_toDatetime(string):
+    return datetime.strptime(string, ISFORMAT)
+
+def get_hour(time):
+    return time.split(' ')[1].split(':')[0]
 
 def user_view_split_by_date():
-    # os.mkdir(DATA_DIR + "user_view")
+    if(not os.path.exists(DATA_DIR + "user_view")):
+        os.mkdir(DATA_DIR + "user_view")
 
     data = pd.read_csv(DATA_DIR + 'user_view.txt', header=None)
-    length = data.shape[0]
-    dictionary = {}
-    for index in range(length):
-        print index
-        date = data.iloc[index,-1].split(' ')[0]
-        if(date.startswith('2016-10')):
-            file_name = data.iloc[index,-1].split(' ')[0]
-            if(not dictionary.has_key(file_name)):
-                dictionary[file_name] = [[], [], []]
-            dictionary[file_name][0].append(data.iloc[index, 0])
-            dictionary[file_name][1].append(data.iloc[index, 1])
-            dictionary[file_name][2].append(data.iloc[index, 2].split(' ')[1].split(':')[0])
-    data.close()
+    data.columns = ['uid', 'iid', 'time']
 
-    for key in dictionary.keys():
-        print key
-        data_single_day = dictionary[key]
-        f = open(DATA_DIR + "user_view/" + key + ".pkl", 'wb')
+    data = data[data['time'].astype(str) > '2016-10']
+
+    for index in range(1, 32):
+        print index
+        if(index < 10):
+            date = '2016-10-0' + str(index)
+        else:
+            date = '2016-10-' + str(index)
+
+        data_single_day = data[data['time'].str.startswith(date + ' ')]
+        data_single_day = data_single_day['time'].apply(get_hour)
+        f = open(DATA_DIR + "user_view/" + date + ".pkl", 'wb')
         cPickle.dump(data_single_day, f, -1)
         f.close()
-
 
 user_view_split_by_date()
 # shop_info = pd.read_csv(DATA_DIR + "shop_info.txt",header=None)

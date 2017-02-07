@@ -3,7 +3,10 @@ import os
 import cPickle
 
 DATA_DIR = "../data/"
-ISFORMAT="%Y-%m-%d %H:%M:%S"
+ISFORMAT = "%Y-%m-%d %H:%M:%S"
+
+def get_hour(time):
+    return time.split(' ')[1].split(':')[0]
 
 def user_view_split_by_date():
     if(not os.path.exists(DATA_DIR + "user_pay")):
@@ -13,26 +16,18 @@ def user_view_split_by_date():
     data.columns = ['uid', 'iid', 'time']
 
     data = data[data['time'].astype(str) > '2016-10']
-    length = data.shape[0]
-    print length
-    print data.tail(3)
-    print data.head()
 
-    dictionary = {}
-    for index in range(length):
+    for index in range(1, 32):
         print index
-        file_name = data.iloc[index, -1].split(' ')[0]
-        if (not dictionary.has_key(file_name)):
-            dictionary[file_name] = [[], [], []]
-        dictionary[file_name][0].append(data.iloc[index, 0])
-        dictionary[file_name][1].append(data.iloc[index, 1])
-        dictionary[file_name][2].append(data.iloc[index, 2].split(' ')[1].split(':')[0])
+        if(index < 10):
+            date = '2016-10-0' + str(index)
+        else:
+            date = '2016-10-' + str(index)
 
-    for key,value in dictionary.items():
-        print key
-        # data_single_day = dictionary[key]
-        f = open(DATA_DIR + "user_pay/" + key + ".pkl", 'wb')
-        cPickle.dump(value, f, -1)
+        data_single_day = data[data['time'].str.startswith(date + ' ')]
+        data_single_day = data_single_day['time'].apply(get_hour)
+        f = open(DATA_DIR + "user_pay/" + date + ".pkl", 'wb')
+        cPickle.dump(data_single_day, f, -1)
         f.close()
 
 user_view_split_by_date()
