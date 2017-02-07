@@ -25,7 +25,7 @@ def user_view_split_by_date():
             date = '2016-10-' + str(index)
 
         data_single_day = data[data['time'].str.startswith(date + ' ')]
-        data_single_day = data_single_day['time'].apply(get_hour)
+        data_single_day['time'] = data_single_day['time'].apply(get_hour)
         f = open(DATA_DIR + "user_pay/" + date + ".pkl", 'wb')
         cPickle.dump(data_single_day, f, -1)
         f.close()
