@@ -56,5 +56,13 @@ data = [97,104,90,76,77,99,107]
 result.iloc[1418-1,1:8] = data
 result.iloc[1418-1,8:15] = data
 
+#处理偶尔出现的0值
+
+shape = data.shape
+for x in range(shape[0]):
+    for index in range(shape[1]):
+        if(data.iloc[x,index] <= 1):
+            data.iloc[x, index] = data[:,index].median()
+
 result.to_csv(static_params.OUTPUT_PATH + 'submission.csv',header=None,index=None)
 print result
