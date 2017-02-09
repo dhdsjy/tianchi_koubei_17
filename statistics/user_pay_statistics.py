@@ -10,7 +10,7 @@ def get_date(time):
 
 data['time'] = data['time'].apply(get_date)
 data = data[data['time'] >= '2016-10-10']
-data = data[data['iid'] == 1999]
+data = data[data['iid'] == 336]
 #1985,1998,1995
 #1824,1707,1418
 

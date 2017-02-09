@@ -22,8 +22,19 @@ def user_pay_get_last_week():
     for row in data.values:
         result.loc[row[0] - 1,row[1]] = row[2]
 
+    shape = result.shape
+    for x in range(shape[0]):
+        for index in range(1, shape[1]):
+            median = result.iloc[x, 1:].median()
+            if (result.iloc[x, index] <= 1):
+                result.iloc[x, index] = median
+            if (result.iloc[x, index] <= median/5):
+                result.iloc[x, index] = median
+
+    print result
+
     f = open(static_params.DATA_PATH + "user_pay_last_two_weeks.pkl", 'wb')
-    cPickle.dump(result, f, -1)
+    cPickle.dump(result.astype(int), f, -1)
     f.close()
 
 user_pay_get_last_week()
