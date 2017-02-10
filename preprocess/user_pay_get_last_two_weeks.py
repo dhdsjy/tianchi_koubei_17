@@ -6,7 +6,7 @@ def get_date(time):
     return time.split(' ')[0]
 
 def user_pay_get_last_week():
-    data = pd.read_pickle(static_params.DATA_USER_PAY_MONTH_PATH + "2016_10.pkl")
+    data = pd.read_pickle(static_params.DATA_USER_PAY_BY_MONTH_PATH + "2016_10.pkl")
 
     data = data[data['time'] >= '2016-10-18']
     data['time'] = data['time'].apply(get_date)

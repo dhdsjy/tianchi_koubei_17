@@ -4,7 +4,7 @@ import static_params
 
 #取10月的均值，另外对周五乘以1.1,周六和周日乘以1.2
 
-data = pd.read_pickle(static_params.DATA_USER_PAY_MONTH_PATH + "2016_10.pkl")
+data = pd.read_pickle(static_params.DATA_USER_PAY_BY_MONTH_PATH + "2016_10.pkl")
 data = data[data['time'] >= '2016-10-25']
 
 x = data.groupby(['iid'],as_index=False).count()

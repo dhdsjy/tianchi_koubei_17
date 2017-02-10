@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 import static_params
 
-data = pd.read_pickle(static_params.DATA_USER_PAY_MONTH_PATH + "2016_10.pkl")
+data = pd.read_pickle(static_params.DATA_USER_PAY_BY_MONTH_PATH + "2016_10.pkl")
 
 def get_date(time):
     return time.split(' ')[0]
