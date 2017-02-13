@@ -15,9 +15,10 @@ for index in range(1,8):
     result[column]  = data.loc[:,['2016-10-' + str(index + 10),'2016-10-' + str(index + 17),'2016-10-' + str(index + 24)]].mean(1)
 
 data2 = result.copy()
-result = pd.merge(data2,result,on='iid').astype(int)
+result = pd.merge(data2,result,on='iid')
 
 result.iloc[:,-4] = result.iloc[:,-4]*1.2
+result = result.astype(int)
 print result
 
 result.to_csv(static_params.OUTPUT_PATH + 'submission.csv',header=None,index=None)
