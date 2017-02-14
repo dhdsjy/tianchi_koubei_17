@@ -34,5 +34,3 @@ def user_pay_get_last_week():
     f = open(static_params.DATA_PATH + "user_pay_last_week.pkl", 'wb')
     cPickle.dump(result, f, -1)
     f.close()
-
-user_pay_get_last_week()

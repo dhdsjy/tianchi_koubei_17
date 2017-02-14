@@ -1,4 +1,4 @@
-ROOT_PATH = '../'
+ROOT_PATH = ''
 MODEL_PATH = ROOT_PATH + 'model/'
 OUTPUT_PATH = ROOT_PATH + 'output/'
 PRE_PROCESS_PATH = ROOT_PATH + 'preprocess/'

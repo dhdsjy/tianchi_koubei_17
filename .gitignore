@@ -90,6 +90,3 @@ ENV/
 
 #data
 data/*
-
-#output
-output/*

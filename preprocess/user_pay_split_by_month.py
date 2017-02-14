@@ -9,7 +9,7 @@ DATA_DIR_SEC = 'user_pay_month/'
 ISFORMAT = "%Y-%m-%d %H:%M:%S"
 
 
-def user_view_split_by_date():
+def user_pay_split_by_month():
     if(not os.path.exists(static_params.DATA_USER_PAY_BY_MONTH_PATH)):
         os.mkdir(static_params.DATA_USER_PAY_BY_MONTH_PATH)
 
@@ -21,5 +21,3 @@ def user_view_split_by_date():
     f = open(static_params.DATA_USER_PAY_BY_MONTH_PATH + '2016_10' + ".pkl", 'wb')
     cPickle.dump(data, f, -1)
     f.close()
-
-user_view_split_by_date()

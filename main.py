@@ -1,17 +1,11 @@
-import pandas as pd
-import numpy as np
+# coding=UTF-8
+from preprocess.data_process import preprocess
+from rule.submission_by_rule4 import get_result_by_last_three_weeks_mean
+from rule.extra_fix import extra_fix
 
-df = pd.DataFrame({'A' : ['foo', 'bar', 'foo', 'bar',
-                              'foo', 'bar', 'foo', 'foo'],
-                   'B' : ['one', 'one', 'two', 'three',
-                              'two', 'two', 'one', 'three'],
-                   'C' : np.random.randn(8),
-                   'D' : np.random.randn(8)})
-
-print df
-
-grouped = df.groupby('A')
-print type(grouped)
-for name,group in grouped:
-    print name
-    print type(group)
+#预处理数据，获取切分后的数据
+# preprocess()
+#按当前效果最好的前三星期均值作为结果
+get_result_by_last_three_weeks_mean()
+#最后做少量人工调整
+extra_fix()

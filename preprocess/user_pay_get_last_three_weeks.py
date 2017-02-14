@@ -5,7 +5,7 @@ import static_params
 def get_date(time):
     return time.split(' ')[0]
 
-def user_pay_get_last_week():
+def user_pay_get_last_three_weeks():
     data = pd.read_pickle(static_params.DATA_USER_PAY_BY_MONTH_PATH + "2016_10.pkl")
 
     data = data[data['time'] >= '2016-10-11']
@@ -31,10 +31,6 @@ def user_pay_get_last_week():
             if (result.iloc[x, index] <= median/5):
                 result.iloc[x, index] = median
 
-    print result
-
     f = open(static_params.DATA_PATH + "user_pay_last_three_weeks.pkl", 'wb')
     cPickle.dump(result.astype(int), f, -1)
     f.close()
-
-user_pay_get_last_week()

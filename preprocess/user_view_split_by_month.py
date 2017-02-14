@@ -23,6 +23,3 @@ def user_view_split_by_date():
     f = open(static_params.DATA_USER_VIEW_BY_MONTH_PATH + '2016_10' + ".pkl", 'wb')
     cPickle.dump(data, f, -1)
     f.close()
-
-user_view_split_by_date()
-# shop_info = pd.read_csv(DATA_DIR + "shop_info.txt",header=None)
